@@ -1,5 +1,58 @@
 ---
-title: "Parte de R"
-format: html
+title: "ExamenII_G1_C4J618_Liz_Salazar"
+author: "Liz de María Salazar Amaya"
+date: 11-30-2025
+format: 
+  html:
+    toc: true
+    theme: cosmo
+    self-contained: true
+    toc-float: true
 ---
 
+# Parte de R
+
+Link del repositorio: https://github.com/lizsalazar17/ExamenII_G1_C4J618.git
+
+Primero, cargaremos la data de moras.txt
+
+
+```{r}
+library(readr)
+library(dplyr)
+
+df <- read_csv("../data/moras.txt")
+head(df)
+
+
+```
+
+
+## 1. Resumen de 5 números
+
+Para edad: 
+```{r}
+
+df %>%
+  summarise(
+    Categoria = "Edad",
+    Media = mean(EDAD, na.rm = TRUE),
+    Mediana = median(EDAD, na.rm = TRUE),
+    Desviacion = sd(EDAD, na.rm = TRUE),
+    Minimo = min(EDAD, na.rm = TRUE),
+    Maximo = max(EDAD, na.rm = TRUE),
+  )
+df %>% 
+  summarise(
+    Categoria = "Salario",
+    Media = mean(SALARIO, na.rm = TRUE),
+    Mediana = median(SALARIO, na.rm = TRUE),
+    Desviacion = sd(SALARIO, na.rm = TRUE),
+    Minimo = min(SALARIO, na.rm = TRUE),
+    Maximo = max(SALARIO, na.rm = TRUE),
+  ) 
+  
+  
+```
+  
+  
