@@ -20,6 +20,7 @@ Primero, cargaremos la data de moras.txt
 ```{r}
 library(readr)
 library(dplyr)
+library(ggplot2)
 
 df <- read_csv("../data/moras.txt")
 head(df)
@@ -118,6 +119,117 @@ df.modificada <- df.modificada %>%
 ```
   
   #6. Gráficos de individuos por categoría
+  
+  Para sexo:
+```{r}
+df.modificada %>%
+  ggplot(aes(x = SEXO)) +
+  geom_bar(fill = "pink", width = 0.4) +
+  theme_minimal() +
+  labs(
+    title = "Conteo de individuos por sexo",
+    x = "Sexo",
+    y = "Frecuencia"
+  )
 
+
+```
+ Para tipo de aseguramiento 
+```{r}
+
+  df.modificada %>%
+  ggplot(aes(x = TIPO_ASEGURAMIENTO)) +
+  geom_bar(fill = "pink", width = 0.4) +
+  coord_flip() +
+  theme_minimal() +
+  labs(
+    title = "Individuos por tipo de aseguramiento",
+    x = "Aseguramiento",
+    y = "Frecuencia"
+  ) 
+  # theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+Para sector: 
+```{r}
+
+  df.modificada %>%
+  ggplot(aes(x = SECTOR)) +
+  geom_bar(fill = "pink", width = 0.4) +
+  theme_minimal() +
+  labs(
+    title = "Conteo de individuos por sector",
+    x = "Sector",
+    y = "Frecuencia"
+  )
+```
+Para indicador activo
+```{r}
+
+  df.modificada %>%
+  ggplot(aes(x = INDICADOR_ACTIVO)) +
+  geom_bar(fill = "pink", width = 0.4) +
+  theme_minimal() +
+  labs(
+    title = "Conteo de individuos por asegurado activo",
+    x = "Indicador Activo",
+    y = "Frecuencia"
+  )
+```
+  Para indicador extranjero: 
+```{r}
+
+  df.modificada %>%
+  ggplot(aes(x = INDICADOR.EXTRANJERO)) +
+  geom_bar(fill = "pink", width = 0.4) +
+  theme_minimal() +
+  labs(
+    title = "Conteo de individuos por extranjero",
+    x = "Indicador extranjero",
+    y = "Frecuencia"
+  )
+
+```
+  
+Para indicador moroso: 
+
+```{r}
+
+  df.modificada %>%
+  ggplot(aes(x = INDICADOR_MOROSO)) +
+  geom_bar(fill = "pink", width = 0.4) +
+  theme_minimal() +
+  labs(
+    title = "Conteo de individuos por indicador de morosidad",
+    x = "Indicador moroso",
+    y = "Frecuencia"
+  )
+```
+
+  ## 7- Gráficos de porcentaje de morosidad por categoría númerica
+  
+  Para sexo: 
+  
+```{r}
+df.modificada %>%
+  filter(INDICADOR_MOROSO == "SÍ") %>%
+  ggplot(aes(x = SEXO)) +
+  geom_bar() +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  labs(
+    title = "Proporción de morosidad por sexo",
+    x = "Sexo",
+    y = "Proporción",
+  )
+
+```
+  
+  Para tipo de aseguramiento: 
+  
+```{r}
+
+```
   
   
