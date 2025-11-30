@@ -84,5 +84,40 @@ tamanio <- nrow(df.modificada)
 porcentaje.por.columna <- valores.nulos / tamanio * 100
 porcentaje.por.columna
 ```
+  ## 5. Imputación de datos
+```{r}
+  mediana.edad <- median(df$EDAD, na.rm = TRUE)
+  mediana.salario <- median(df$SALARIO, na.rm = TRUE)
+  moda.tipo <- df %>%
+      count(TIPO_ASEGURAMIENTO) %>%
+      arrange(desc(n)) %>%
+      slice(1) %>%
+      pull(TIPO_ASEGURAMIENTO)
 
+
+df.modificada <- df.modificada %>%
+  mutate(
+    EDAD = if_else(
+      is.na(EDAD),
+      mediana.edad,
+      EDAD
+    ),
+    SALARIO = if_else(
+      is.na(SALARIO),
+      mediana.salario, 
+      SALARIO
+    ), 
+    TIPO_ASEGURAMIENTO = if_else(
+      is.na(TIPO_ASEGURAMIENTO), 
+      moda.tipo, 
+      TIPO_ASEGURAMIENTO
+    )
+  )
+
+
+```
+  
+  #6. Gráficos de individuos por categoría
+
+  
   
