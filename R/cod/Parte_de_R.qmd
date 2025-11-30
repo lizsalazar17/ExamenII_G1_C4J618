@@ -77,4 +77,12 @@ head(df.modificada)
   
   ## 4. Valores faltantes 
 
+    
+```{r}
+valores.nulos <- colSums(is.na(df.modificada))
+tamanio <- nrow(df.modificada)
+porcentaje.por.columna <- valores.nulos / tamanio * 100
+porcentaje.por.columna
+```
+
   
