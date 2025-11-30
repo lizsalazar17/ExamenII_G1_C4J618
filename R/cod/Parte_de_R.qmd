@@ -54,5 +54,27 @@ df %>%
   
   
 ```
+  ## 3-Valores atípicos
   
+```{r}
+  promedio.edad <- mean(df$EDAD, na.rm = TRUE)
+  desviacion.edad <- sd(df$EDAD, na.rm = TRUE)
+  
+  promedio.salario <- mean(df$SALARIO, na.rm = TRUE)
+  desviacion.salario<- sd(df$SALARIO, na.rm = TRUE)
+
+df.modificada <- 
+df %>% 
+  mutate (
+    Z_SCORE_EDAD= (EDAD - promedio.edad) / desviacion.edad,
+    VALORES_ATIPICOS_EDAD = ifelse(abs(Z_SCORE_EDAD) > 1.69, "SI", "NO"),
+    Z_SCORE_SALARIO= (EDAD - promedio.salario) / desviacion.salario,
+    VALORES_ATIPICOS_SALARIO = ifelse(abs(Z_SCORE_SALARIO) > 1.69, "SI", "NO")
+  )
+
+head(df.modificada)
+```
+  
+  ## 4. Valores faltantes 
+
   
