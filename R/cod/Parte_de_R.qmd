@@ -210,26 +210,118 @@ Para indicador moroso:
   ## 7- Gráficos de porcentaje de morosidad por categoría númerica
   
   Para sexo: 
-  
+
 ```{r}
-df.modificada %>%
-  filter(INDICADOR_MOROSO == "SÍ") %>%
-  ggplot(aes(x = SEXO)) +
-  geom_bar() +
+
+morosidad.por.sexo <- df.modificada %>%
+  group_by(SEXO) %>%
+  summarise(
+    total = n(),
+    morosos = sum(INDICADOR_MOROSO == "SI"),
+    porcentaje = morosos / total
+  )
+
+ggplot(morosidad.por.sexo, aes(x = SEXO, y = porcentaje)) +
+  geom_col(fill = "pink", width = 0.5) +
   scale_y_continuous(labels = scales::percent) +
   theme_minimal() +
   labs(
-    title = "Proporción de morosidad por sexo",
+    title = "Porcentaje de morosidad por sexo",
     x = "Sexo",
-    y = "Proporción",
+    y = "Porcentaje"
   )
 
+
 ```
+
   
   Para tipo de aseguramiento: 
   
 ```{r}
+morosidad.por.aseguramiento <- df.modificada %>%
+  group_by(TIPO_ASEGURAMIENTO) %>%
+  summarise(
+    total = n(),
+    morosos = sum(INDICADOR_MOROSO == "SI"),
+    porcentaje = morosos / total
+  )
+
+ggplot(morosidad.por.aseguramiento, aes(x = TIPO_ASEGURAMIENTO, y = porcentaje)) +
+  geom_col(fill = "pink", width = 0.5) +
+  scale_y_continuous(labels = scales::percent) +
+  coord_flip() +
+  theme_minimal() +
+  labs(
+    title = "Porcentaje por aseguramiento",
+    x = "Tipo de aseguramiento",
+    y = "Porcentaje"
+  )
+```
+  Para sector: 
+```{r}
+morosidad.por.sector <- df.modificada %>%
+  group_by(SECTOR) %>%
+  summarise(
+    total = n(),
+    morosos = sum(INDICADOR_MOROSO == "SI"),
+    porcentaje = morosos / total
+  )
+
+ggplot(morosidad.por.sector, aes(x = SECTOR, y = porcentaje)) +
+  geom_col(fill = "pink", width = 0.5) +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  labs(
+    title = "Porcentaje de morosidad por sector",
+    x = "Sector",
+    y = "Porcentaje"
+  )
 
 ```
-  
-  
+Para indicador activo
+
+```{r}
+morosidad.por.activo <- df.modificada %>%
+  group_by(INDICADOR_ACTIVO) %>%
+  summarise(
+    total = n(),
+    morosos = sum(INDICADOR_MOROSO == "SI"),
+    porcentaje = morosos / total
+  )
+
+ggplot(morosidad.por.activo, aes(x = INDICADOR_ACTIVO, y = porcentaje)) +
+  geom_col(fill = "pink", width = 0.5) +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  labs(
+    title = "Porcentaje de morosidad por indicador de activo",
+    x = "Indicador activo",
+    y = "Porcentaje"
+  )
+
+```
+
+Para indicar extrnajero; 
+
+```{r}
+morosidad.por.extranjero <- df.modificada %>%
+  group_by(INDICADOR.EXTRANJERO) %>%
+  summarise(
+    total = n(),
+    morosos = sum(INDICADOR_MOROSO == "SI"),
+    porcentaje = morosos / total
+  )
+
+ggplot(morosidad.por.extranjero, aes(x = INDICADOR.EXTRANJERO, y = porcentaje)) +
+  geom_col(fill = "pink", width = 0.5) +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  labs(
+    title = "Porcentaje de morosidad por indicador de extranjero",
+    x = "Indicador extranjero",
+    y = "Porcentaje"
+  )
+```
+
+## 8- 
+```{r}
