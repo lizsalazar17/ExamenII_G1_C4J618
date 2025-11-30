@@ -64,7 +64,15 @@ Al analizar los gráficos, la mayoría de personas que presentan morosidad hasta
 En el caso del salario, se decidió analizar los quartiles de los montos de salario para mayor simplicidad. Dentro del análisis, las personas que tienen ingresos altos son las que menos morosidad presentan y las que estan en ingreso medio-bajo son las que más porcentaje presentan, esto puede ser a que dentro de esa clase se encuentran trabajadores independientes y personas que no participan en algún convenio. 
 
 
+# Parte de R
+
+Link del repositorio: https://github.com/lizsalazar17/ExamenII_G1_C4J618.git
+
+Primero, cargaremos la data de moras.txt
+
+```{r}
+library(readxl)
+```
 
 
-
-
+## 1. Resumen de 5 números

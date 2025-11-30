@@ -1,0 +1,26 @@
+---
+title: "ExamenII_G1_C4J618_Liz_Salazar"
+author: "Liz de María Salazar Amaya"
+date: 11-30-2025
+format: 
+  html:
+    toc: true
+    theme: cosmo
+    self-contained: true
+    toc-float: true
+---
+
+# Parte de R
+
+Link del repositorio: https://github.com/lizsalazar17/ExamenII_G1_C4J618.git
+
+Primero, cargaremos la data de moras.txt
+
+```{r}
+library(readxl)
+
+moras <- read
+```
+
+
+## 1. Resumen de 5 números
