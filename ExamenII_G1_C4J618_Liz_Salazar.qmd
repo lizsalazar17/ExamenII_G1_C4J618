@@ -1,0 +1,61 @@
+---
+title: "ExamenII_G1_C4J618_Liz_Salazar"
+author: "Liz de María Salazar Amaya"
+date: 11-30-2025
+format: 
+  html:
+    toc: true
+    theme: cosmo
+    self-contained: true
+    toc-float: true
+---
+
+# Parte de excel 
+
+## 1. Carga de datos 
+
+
+![Carga de datos con power Query](carga_de_datos.png)
+
+
+![Carga de datos con power Query](carga_de_datos_2.png)
+
+## 2. Resumenes de números
+
+Se escogieron Mediana, Moda, Mínimo, Máximo y Promedio para las variables númericas SALARIO y EDAD
+
+## Valores atípicos con Z.Score
+
+Para usar z.core, que es una estandarización de acuerdo a la media y desviación estándar observada en la mustra, se utiliza la siguiente fórmula: (x-media)/desviacion estándar. 
+
+En base a esa fórmula creé una columna llamada Z.SCORE y luego otra columna para ver si el valor absoluta del resultado de Z.SCORE es mayor a 1,69 y de ser el caso, indicar que es un valor atípico. 
+
+Información sacada de: https://excel.tv/excel-z-score-formula/
+
+
+## 4. Porcentaje de Na´s
+
+Las únicas columnas que dieron NA´s son las siguientes: 
+
+SALARIO con 0.06%
+EDAD con 0.06%
+TIPO_ASEGURAMIENTO con 0.04%
+
+## 5. Inputación de datos 
+
+Para la miputación de datos. al ver que los datos nulos son muy pocos decidí cambiar los valores númericos por la mediana ya que es un valor que no afecta tanto al balance entre los valores que son muy altos o muy bajos. Y para la imputación de la variable TIPO_ASEGURAMIENTO usé la moda, con la siguiente fórmula para identificar valores únicos dentro de una columna: 
+
+=LET(col, moras[TIPO_ASEGURAMIENTO], unicos, UNIQUE(col), conteos, COUNTIF(col, unicos), INDEX(unicos, XMATCH(MAX(conteos), conteos)))
+
+## 6. Graficos de individuos por categoría
+
+Se calculó la frecuenca observada de cada individuo por la clasificación de cada categoría. 
+
+## 7. Gráficos de porcentaje de personas morosas por categoría
+
+Se calculó las personas que tienen indicador de morosidad por cada categoría.
+
+## 8.
+
+
+# Parte de R
