@@ -383,4 +383,23 @@ df.modificada %>%
   )
 ```
 
-## 10 -
+## 10 -Análisis de árbol para ver la relación con la variable de indicador de morosidad
+
+```{r}
+library(rpart)
+library(rpart.plot)
+
+df.modificada <- 
+  df.modificada %>% 
+  select(-IDENTIFICACION)
+```
+
+
+```{r}
+df.modificada$INDICADOR_MOROSO <- factor(df.modificada$INDICADOR_MOROSO)
+
+
+tree <- rpart(INDICADOR_MOROSO ~ ., data = df.modificada)
+rpart.plot(tree)
+```
+
