@@ -21,6 +21,7 @@ Primero, cargaremos la data de moras.txt
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(scales)
 
 df <- read_csv("../data/moras.txt")
 head(df)
@@ -223,7 +224,7 @@ morosidad.por.sexo <- df.modificada %>%
 
 ggplot(morosidad.por.sexo, aes(x = SEXO, y = porcentaje)) +
   geom_col(fill = "pink", width = 0.5) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = percent) +
   theme_minimal() +
   labs(
     title = "Porcentaje de morosidad por sexo",
@@ -248,7 +249,7 @@ morosidad.por.aseguramiento <- df.modificada %>%
 
 ggplot(morosidad.por.aseguramiento, aes(x = TIPO_ASEGURAMIENTO, y = porcentaje)) +
   geom_col(fill = "pink", width = 0.5) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = percent) +
   coord_flip() +
   theme_minimal() +
   labs(
@@ -269,7 +270,7 @@ morosidad.por.sector <- df.modificada %>%
 
 ggplot(morosidad.por.sector, aes(x = SECTOR, y = porcentaje)) +
   geom_col(fill = "pink", width = 0.5) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = percent) +
   theme_minimal() +
   labs(
     title = "Porcentaje de morosidad por sector",
@@ -291,7 +292,7 @@ morosidad.por.activo <- df.modificada %>%
 
 ggplot(morosidad.por.activo, aes(x = INDICADOR_ACTIVO, y = porcentaje)) +
   geom_col(fill = "pink", width = 0.5) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = percent) +
   theme_minimal() +
   labs(
     title = "Porcentaje de morosidad por indicador de activo",
@@ -314,7 +315,7 @@ morosidad.por.extranjero <- df.modificada %>%
 
 ggplot(morosidad.por.extranjero, aes(x = INDICADOR.EXTRANJERO, y = porcentaje)) +
   geom_col(fill = "pink", width = 0.5) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = percent) +
   theme_minimal() +
   labs(
     title = "Porcentaje de morosidad por indicador de extranjero",
@@ -323,5 +324,63 @@ ggplot(morosidad.por.extranjero, aes(x = INDICADOR.EXTRANJERO, y = porcentaje)) 
   )
 ```
 
-## 8- 
+## 8- Gráficos de variables númericas para ver morosidad
+
+Para edad: 
+
+Se agrupan en base en intervalos de 10 años, igual que en excel, pero esta vez vamos a ver los 9 grupos.
 ```{r}
+df.modificada <- df.modificada %>% 
+  mutate(
+    EDAD_GRUPO = cut(
+      EDAD,
+      breaks = seq(0, 100, by = 10),
+      right = FALSE,
+      include.lowest = TRUE
+    )
+  )
+df.modificada %>% 
+  ggplot(aes(x = EDAD_GRUPO, fill = INDICADOR_MOROSO)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  labs(
+    title = "Proporción de morosidad por edad",
+    x = "Edad",
+    y = "Proporción",
+    fill = "Moroso"
+  )
+
+
+```
+Para salario: 
+
+Loa ordenamos por cauntiles, igual que en la parte de excel.
+
+```{r}
+qs <- quantile(df.modificada$SALARIO, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE)
+qs
+
+df.modificada <- df.modificada %>%
+  mutate(
+    SALARIO_GRUPO = cut(
+      SALARIO,
+      breaks = qs,
+      include.lowest = TRUE,
+      labels = c("Bajo", "Medio-bajo", "Medio-alto", "Alto")
+    )
+  )
+df.modificada %>% 
+  ggplot(aes(x = SALARIO_GRUPO, fill = INDICADOR_MOROSO)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  labs(
+    title = "Proporción de morosidad por salario",
+    x = "Salario",
+    y = "Proporción",
+    fill = "Moroso"
+  )
+```
+
+## 10 -
